@@ -1,0 +1,272 @@
+1. Write a JS program to create object of person with fields as follows:-
+fname - string
+lname - string
+age - int
+skills - array
+address - object
+	city - string
+	pincode - int
+dateOfBirth - Date
+married - Boolean
+profession - string
+
+Create minimum 2 objects and display the object's detail uisng global print method.
+
+var person1={fname:"balakrishna",
+lname:"Motupalli",
+age:52,
+skils:['elevtrician','mechanic'],
+Dob:new Date('1957-06-06'),
+married:true,
+profession:"Wall Operator",
+address:{ city:"Nellore",pincode:524004}};
+
+var person2={fname:"Hemalatha",
+lname:"Motupalli",
+age:22,
+skils:['Drawing','face recognization'],
+Dob:new Date('1997-06-09'),
+married:false,
+profession:"Software Engineer",
+address:{ city:"Nellore",pincode:524004}};
+print=function()
+{
+    console.log("Person1 Details:\n",person1);
+    console.log("Person2 Details:\n",person2);
+    
+}
+print();  
+
+
+2. Modify the above program to create 2 objects, amitabh and abhishek, here abhishek has some
+ common properties from amitabh, try to use it such common properties from amitabh instead of creating it in abhishek.
+
+var Amithabh={fname:"Amithabh",
+lname:"Bachan",
+age:52,
+skils:['acting'],
+Dob:new Date('1957-06-06'),
+married:true,
+profession:"Acting",
+address:{ city:"Mumbai",pincode:400074}};
+var Abhishek=Object.create(Amithabh);
+Abhishek.fname="Abhishek",
+Abhishek.age=37,
+Abhishek.skils=['Drawing','face recognization'],
+Abhishek.Dob=new Date('1987-06-09'),
+Abhishek.married=true;
+
+print=function()
+{
+   
+    console.log("Person1 Details:\n",Amithabh);
+    console.log("Person2 Details:\n",Abhishek);
+    console.log("lname:",Abhishek.lname);
+    console.log("profession:",Abhishek.profession);
+    console.log("address:",Abhishek.address);
+    
+
+}
+print();  
+
+
+3. Modify the above code to create third object as "Aaradhya", this object shares the common properties from amitabh as well as abhishek accordingly demostrate on your own.
+
+var Amithabh={fname:"Amithabh",
+lname:"Bachan",
+age:52,
+skils:['acting'],
+Dob:new Date('1957-06-06'),
+married:true,
+profession:"Acting",
+address:{ city:"Mumbai",pincode:400074}};
+console.log("Amithabh Details:\n",Amithabh);
+console.log("\n");
+var Abhishek=Object.create(Amithabh);
+Abhishek.fname="Abhishek",
+Abhishek.age=37,
+Abhishek.skils=['Drawing','face recognization'],
+Abhishek.Dob=new Date('1987-06-09'),
+Abhishek.married=true;
+console.log("Abhishek Details:\n",Abhishek);
+console.log("lname:",Abhishek.lname);
+console.log("profession:",Abhishek.profession);
+console.log("address:",Abhishek.address);
+console.log("\n");
+var Aaradhya=Object.create(Abhishek);
+Aaradhya.fname="Aaradhya",
+Aaradhya.age=10,
+Aaradhya.skils=['dancing'],
+Aaradhya.Dob=new Date('2008-06-09'),
+Aaradhya.married=false;
+console.log("Aaradhya Details:\n",Aaradhya);
+console.log("lname:",Aaradhya.lname);
+console.log("profession:",Aaradhya.profession);
+console.log("address:",Aaradhya.address);
+   
+  
+4. Create a JS program to implement below:-
+
+	   BankAccount
+		|(accountNumber)
+		|(accountHolderName)
+		|(accountBalance)
+	-------------------------
+	|			|
+	Savings			Current
+	    (isSalary)		     (odLimit)
+
+
+Now, 
+create 1 object of savings with accountNumber, accountHolderName, accountBalance and isSalary.
+create 1 object of currrent with accountNumber, accountHolderName, accountBalance and odLimit.
+
+use savings account object to call a function withdraw(amount), that will subtract the amount from the accountBalance, Note that accountBalance should not go below 0.
+
+use current account object to call a function withdraw(amount), that will subtract the amount from the accountBalance, Note that accountBalance should not go below negative of odLimit.
+
+Now, call getCurrentBalance() from both the object, that will return the accountBalance of the object used to call this method.
+
+
+            ******* using class********
+  
+   
+    //parent class
+
+class BankAccount{
+    
+    constructor(accountNumber,accountHolderName,accountBalance)
+    {
+        this.accountNumber=accountNumber;
+        this.accountHolderName=accountHolderName;
+        this.accountBalance=accountBalance;
+    }
+    deposit(amount){
+        this.accountBalance+=amount;
+    }
+    getCurrentBalance()
+    {
+        console.log("Balance in BankAccount:",this.accountBalance);
+    }
+}
+var BankAccountObject =new BankAccount(123456,"Hema",50000);
+BankAccountObject.deposit(5000);
+BankAccountObject.getCurrentBalance();
+
+//saving class
+
+class Savings extends BankAccount{
+    constructor(accountNumber,accountHolderName,accountBalance,isSalary){
+        super(accountNumber,accountHolderName,accountBalance);
+        this.isSalary=isSalary;
+    }
+    withdraw(amount)
+    {
+        if(this.accountBalance>=amount)
+        {
+            this.accountBalance-=amount;
+        }
+                
+        else
+        {
+            console.log("Insufficient Funds");
+         }
+                
+         
+    }
+    getCurrentBalance()
+    {
+        console.log("Remaining balance Savings account:",this.accountBalance);
+    }
+    
+}
+var savingsObject =new Savings(123456,"Hema",50000,true);
+savingsObject.withdraw(5000);
+savingsObject.getCurrentBalance();
+
+//current class
+
+class Current extends BankAccount{
+    constructor(accountNumber,accountHolderName,accountBalance,odLimit){
+        super(accountNumber,accountHolderName,accountBalance);
+        this.odLimit=odLimit;
+    }
+    withdraw(amount)
+    {
+        var limit=parseInt(this.accountBalance+this.odLimit);
+        if(limit>=amount)
+        {
+            this.accountBalance-=amount;
+        }
+                
+        else
+        {
+            console.log("Insufficient Funds");
+        }
+                
+         
+    }
+    getCurrentBalance()
+    {
+        console.log("Remaining balance current account",this.accountBalance);
+    }
+
+}
+var currentObject=new Current(123456,"Hema",50000,100);
+currentObject.withdraw(12000);
+currentObject.getCurrentBalance();
+
+
+
+                **********using functions********
+
+                var accontNumber;
+var accountHolderName;
+var accountBalance;
+var isSalary;
+function savings(accontNumber,accountHolderName,accountBalance,salary)
+{
+    
+        function withdraw(amount)
+        {
+            if(accountBalance>=amount)
+                accountBalance-=amount;
+            else
+                console.log("Insufficient Funds");
+            
+        }
+        savings.withdraw=withdraw;
+        function getCurrentBalance()
+        {
+            console.log("Remaining balance Savings account:",accountBalance);
+        }
+        savings.getCurrentBalance=getCurrentBalance;
+    
+}
+
+function current(accontNumber,accountHolderName,accountBalance,odLimit)
+{
+
+     function withdraw(amount)
+    {
+        if(accountBalance+odLimit>amount)
+              accountBalance-=amount;
+        else
+            console.log("Insufficient Funds");
+       
+         
+    }
+    current.withdraw=withdraw;
+    function getCurrentBalance()
+    {
+        console.log("Remaining balance current account",accountBalance);
+    }
+    current.getCurrentBalance=getCurrentBalance;
+}
+savings(123456,"hema",50000,true);
+savings.withdraw(20000);
+savings.getCurrentBalance();
+current(123456,"hema",60000,40000);
+current.withdraw(40000);
+current.getCurrentBalance();
+
