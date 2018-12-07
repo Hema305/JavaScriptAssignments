@@ -90,7 +90,7 @@ function createTable() {
     var nameCell1 = nameRow.insertCell(0);
     nameCell1.innerHTML = "Name";
     var nameCell2 = nameRow.insertCell(1);
-    nameCell2.innerHTML = "Priyanka";
+    nameCell2.innerHTML = "Hemalatha";
     var emailRow = table.insertRow(1);
     var nameCell1 = nameRow.insertCell(0);
     nameCell1.innerHTML = "Name";
